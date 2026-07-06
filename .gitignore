@@ -1,0 +1,68 @@
+# ─────────────────────────────────────────────────────────────
+# ATLAS Corporation — security-first .gitignore (commit #1)
+# The fund-moving surface is the attack surface. Nothing secret enters git.
+# ─────────────────────────────────────────────────────────────
+
+# Secrets, keys, wallets — NEVER commit
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.keystore
+*.mnemonic
+*.seed
+secrets/
+wallets/
+keystore/
+keys/
+**/okx_sa*.json
+**/*passphrase*
+**/*secret*
+policy/owner-config.local.json
+policy/*.secret.json
+
+# OKX / Virtuals / signer material
+OKX_API_KEY*
+OKX_SECRET*
+OKX_PASSPHRASE*
+*.signer.json
+privy_*.json
+
+# External repos cloned only to STUDY — never vendor into this repo
+**/_clones/
+research/_clones/
+acp_tracer/research/_clones/
+
+# Node / build
+node_modules/
+dist/
+build/
+.next/
+out/
+coverage/
+.turbo/
+*.tsbuildinfo
+
+# Python (if an engine uses it)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Runtime state — agent memory / ledger / logs (never in git)
+*.log
+*.sqlite
+*.sqlite3
+*.db
+runtime/state/
+update.local.md
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
