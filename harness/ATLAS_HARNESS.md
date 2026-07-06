@@ -114,7 +114,7 @@ The parent's single non-collapsible `Evaluator` gate (§4.5 gate 1) is upgraded:
 
 ## 5. Delta 4 — Engines (generalized Delivery)
 
-The parent's one `Delivery` role becomes an **Engine Registry**. An *engine* is a Delivery module with its own bounded sub-crew, carrying the exact parent contract shape (frontmatter `tools:` allowlist + deontic Own/MustNot/MustDo/ExitState body). The Orchestrator matches a canonical `Task` → an engine (or **composes** several), and may **fabricate** a new engine (scaffold a new module under the same contract) when no existing one fits — this is the "investiga qualquer tipo de trabalho e fabrica engines" capability.
+The parent's one `Delivery` role becomes an **Engine Registry**. An *engine* is a Delivery module with its own bounded sub-crew, carrying the exact parent contract shape (frontmatter `tools:` allowlist + deontic Own/MustNot/MustDo/ExitState body). The Orchestrator matches a canonical `Task` → an engine (or **composes** several), and may **fabricate** a new engine (scaffold a new module under the same contract) when no existing one fits — this is the "investiga qualquer tipo de trabalho e fabrica engines" capability. When a problem is larger than one engine, ATLAS assembles an **entire Harness (a team of AI agents)** for it, on any CLI or Layer, surfaced through the ACP Tracer visual interface. Full capability map: [`../docs/ATLAS_CAPABILITIES.md`](../docs/ATLAS_CAPABILITIES.md).
 
 ### 5.1 The two engine classes (the money boundary, restated)
 
@@ -122,9 +122,11 @@ The parent's one `Delivery` role becomes an **Engine Registry**. An *engine* is 
   - **Researcher** ← **v1 pilot** (smallest money surface; the whole v1 proof rides on it).
   - **Hacker** — pre-publication sterilization / OWASP hardening / secret-hunting (mirrors your `hacker` agent). Also our internal pre-push reviewer (§10).
   - **Cybersecurity** — audits, threat models, config review.
-- **Transacting engines** — emit a **typed intent** only (`{swap|bridge|trade}`), **never sign**. The rail's Policy Gate + deterministic signer decide and execute. Personas/decision policy defined later in each engine's soul.
-  - **Swap Token** · **Token Bridge** · **Trader / Druckenmiller** (persona authored in its own `neural_soul.md`, last, against a proven substrate).
+- **Transacting engines** — emit a **typed intent** only (`{swap|bridge|trade|deploy}`), **never sign**. The rail's Policy Gate + deterministic signer decide and execute. Personas/decision policy defined later in each engine's soul.
+  - **Swap Token** (best-fee routing) · **Token Bridge** (best-fee routing) · **Trader / Druckenmiller** (persona authored in its own `neural_soul.md`, last, against a proven substrate).
+  - **Contract / Oracle-RWA** — study a problem, then build and deploy smart contracts on-chain (deployment is a `deploy` intent through the Policy Gate). Example: **Oracle contracts bringing real-world assets (RWA) on-chain** as tokenized assets.
   - **Wrap the connected `chaingpt` MCP** for on-chain primitives: `dex_1inch_quote`/`dex_build_swap_tx`, `bridge_quote`/`bridge_build_deposit_tx`, `agent_wallet_policy`, `x402_*`, `risk_token`/`risk_honeypot`. These produce *unsigned* txs/quotes → fed as intents into the Policy Gate. **chaingpt never signs for us** — its output is a proposal, subject to the same gate as any brain output.
+- **Personal / the Clone** — run the owner's daily digital life and represent them in web3 and the digital world: email, calendar, scheduling, coding, and acting as a coworker on the owner's machine or a server. **Owner-gated** (standing instructions); read/draft actions are non-transacting, any on-chain action emits an intent through the gates. It clones the owner's judgement and standard, **never their keys**.
 
 ### 5.2 Engine contract skeleton
 

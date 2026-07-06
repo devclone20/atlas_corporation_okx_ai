@@ -55,10 +55,14 @@ flowchart TB
 
 Each rail has its own session key, Policy Gate, and fenced wallet lease — **never shared**.
 
-## The engines
+## The engines & capabilities
 
+- **Personal (the Clone):** run the owner's daily digital life — email, calendar, coding, scheduled tasks — and represent them across web3 and the digital world. Owner-gated; clones judgement, never keys.
 - **Non-transacting** (ship first): `Researcher` · `Hacker` · `Cybersecurity` — produce an artifact + evidence, touch no funds.
-- **Transacting** (emit typed intents, never sign): `Swap` · `Bridge` · `Trader` — the Policy Gate + deterministic signer decide and execute.
+- **Transacting** (emit typed intents, never sign): `Swap` (best-fee routing) · `Bridge` (best-fee routing) · `Trader` — the Policy Gate + deterministic signer decide and execute.
+- **Build & deploy:** `Contract / Oracle-RWA` — study a problem, then build and deploy smart contracts on-chain (e.g. Oracle contracts bringing real-world assets on-chain), and fabricate new engines — or entire Harness agent teams — on demand.
+
+Full capability map: [docs/ATLAS_CAPABILITIES.md](docs/ATLAS_CAPABILITIES.md).
 
 ## Security posture
 

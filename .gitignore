@@ -66,3 +66,12 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
+
+# OnchainOS / OKX skill (project-scoped) — never commit skills, fetched binaries, or wallet/session state
+.agents/
+skills-lock.json
+.claude/skills/
+.onchainos/
+onchainos-*
+okx-pilot*
+*.session
