@@ -1,0 +1,13 @@
+{
+  "name": "@atlas/architect",
+  "version": "1.0.0",
+  "description": "ATLAS Harness Architect — turns a client problem into a complete, executable Harness architecture document.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "atlas-architect": "bin/atlas-architect.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0"
+  }
+}

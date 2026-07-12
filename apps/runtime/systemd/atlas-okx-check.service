@@ -1,0 +1,10 @@
+[Unit]
+Description=ATLAS OKX approval check (agent 4460)
+
+[Service]
+Type=oneshot
+User=atlas
+Group=atlas
+WorkingDirectory=/opt/atlas
+Environment=HOME=/opt/atlas
+ExecStart=/usr/bin/bash /opt/atlas/bin/okx_approval_check.sh

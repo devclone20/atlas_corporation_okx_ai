@@ -1,0 +1,16 @@
+{
+  "name": "atlas-corporation",
+  "version": "2.0.0",
+  "private": true,
+  "description": "ATLAS — the Harness architect. An iNFT agent that designs complete AI agent-team architectures any LLM can build and run.",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "architect": "node apps/architect/bin/atlas-architect.mjs",
+    "check": "node --check apps/architect/bin/atlas-architect.mjs && node --check apps/architect/src/assemble.mjs && node --check apps/architect/src/validate.mjs"
+  }
+}

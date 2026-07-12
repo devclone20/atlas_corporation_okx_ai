@@ -1,0 +1,21 @@
+[Unit]
+Description=ATLAS OKX A2A daemon (agent 4460)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=atlas
+Group=atlas
+WorkingDirectory=/opt/atlas
+Environment=HOME=/opt/atlas
+Environment=NVM_DIR=/opt/atlas/.nvm
+Environment=PATH=/opt/atlas/.nvm/versions/node/v22.23.1/bin:/opt/atlas/.local/bin:/usr/local/bin:/usr/bin:/bin
+EnvironmentFile=/opt/atlas/secrets/a2a.env
+ExecStart=/opt/atlas/.nvm/versions/node/v22.23.1/bin/okx-a2a run
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
