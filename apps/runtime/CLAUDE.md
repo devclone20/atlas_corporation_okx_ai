@@ -59,7 +59,12 @@ the intake fields, negotiate scope in chat before accepting.
 ## Delivery flow for an accepted job
 
 1. Read the buyer's intake from the job/chat. Map to a catalog theme.
-2. Research the domain (real sources; verify endpoints exist where possible).
+2. Research the domain (real sources; verify endpoints exist where possible; mark what you cannot
+   verify `[UNVERIFIED]`, never invent an endpoint).
 3. Write the architecture doc per the blueprint (skeleton sections 1-13, 8/14 conditional).
-4. Validate (`atlas-architect validate`). Fix every ✗ before delivering.
-5. Deliver as Markdown text (or file if requested). One notification. Then wait.
+4. Validate (`atlas-architect validate`). Fix every ✗ before going further.
+5. **Evaluate before delivery — the actor is never the judge.** Review the document against the
+   intake's acceptance criteria with fresh eyes (a separate pass; for a high-stakes or high-fee
+   job, two independent evaluators under quorum). Bounce back to step 3 on any gap. Only a passed
+   document proceeds.
+6. Deliver as Markdown text (or file if requested). One notification. Then wait.

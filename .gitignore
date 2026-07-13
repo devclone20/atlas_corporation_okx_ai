@@ -75,3 +75,6 @@ skills-lock.json
 onchainos-*
 okx-pilot*
 *.session
+
+# ATLAS soul upload — never commit the wallet key or per-session env
+soul/*.key
