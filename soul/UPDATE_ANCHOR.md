@@ -18,11 +18,14 @@ and it should not be handled by anyone but you.
 
 ## Run it (≈1 minute, no cost)
 
+Run from `soul/` — its own `package.json` pins the `@irys` deps, so the imports
+resolve after a one-time `npm install`:
+
 ```sh
-cd ~/Desktop/iFRAME/apps/iIrysframe          # Irys deps already installed here
+cd ~/Desktop/atlas_corporation_okx_ai/soul
+npm install                                  # one-time — creates soul/node_modules
 export IRYS_KEY=0x<private key of 0xb94b…0fad>
-node ~/Desktop/atlas_corporation_okx_ai/soul/update-irys-anchor.mjs \
-     ~/Desktop/atlas_corporation_okx_ai/soul/atlas1.metadata.v2.json
+npm run update-anchor                         # signs + uploads atlas1.metadata.v2.json
 unset IRYS_KEY
 ```
 

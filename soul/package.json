@@ -1,0 +1,15 @@
+{
+  "name": "@atlas/soul-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Owner tool: refine the ATLAS soul on the mutable Irys anchor.",
+  "license": "MIT",
+  "scripts": {
+    "update-anchor": "node update-irys-anchor.mjs atlas1.metadata.v2.json"
+  },
+  "dependencies": {
+    "@irys/upload": "0.0.15",
+    "@irys/upload-ethereum": "0.0.15"
+  }
+}

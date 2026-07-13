@@ -7,15 +7,17 @@
 // ignored, so this MUST be signed by the owner.
 //
 // The private key never lives in this repo. Export it for one session and unset
-// it right after:
+// it right after. Run from THIS directory (soul/) — its own package.json pins
+// the @irys deps, so `npm install` here makes the imports below resolve:
 //
-//   cd ~/Desktop/iFRAME/apps/iIrysframe        # deps already installed here
+//   cd ~/Desktop/atlas_corporation_okx_ai/soul
+//   npm install                 # one-time — installs @irys/upload into soul/node_modules
 //   export IRYS_KEY=0x<metamask-private-key-of-0xb94b…0fad>
-//   node ~/Desktop/atlas_corporation_okx_ai/soul/update-irys-anchor.mjs \
-//        ~/Desktop/atlas_corporation_okx_ai/soul/atlas1.metadata.v2.json
+//   npm run update-anchor       # = node update-irys-anchor.mjs atlas1.metadata.v2.json
 //   unset IRYS_KEY
 //
-// Upload is < 100 KiB → free on Irys mainnet. No funding step.
+// Upload is < 100 KiB → free on Irys mainnet (same as the 26 KB v1 seal). No
+// funding step. If the node ever asks for balance, `irys fund` a few cents.
 
 import fs from "node:fs";
 import { Uploader } from "@irys/upload";
