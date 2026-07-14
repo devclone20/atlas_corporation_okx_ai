@@ -38,7 +38,14 @@ curl -sL  https://gateway.irys.xyz/mutable/JCTu7dmsEa327ymLZXpXvvPDv3vi3Vu69kaVd
 
 The `location:` header must end in the **new** tx id, and the JSON must show the v2
 soul. The immutable root (`gateway.irys.xyz/JCTu7dms…`) keeps serving v1 forever —
-that's the point of a permanent datachain; the mutable anchor is what your NFT reads.
+that's the point of a permanent datachain.
+
+> ⚠️ **Correction (verified on-chain 2026-07-14):** updating the mutable anchor does **not**,
+> by itself, change what the NFT displays. This contract's on-chain `tokenURI(1)` points at the
+> **immutable root** (`gateway.irys.xyz/JCTu7dms…`), so OpenSea and every marketplace read **v1**
+> until the token is re-pointed at the mutable path. Do that once with
+> `setTokenURI(1, …/mutable/JCTu7dms…)` — see **`TOKENURI_RETARGET.md`** and the signing page
+> `tokenuri-retarget.html`. After the retarget, anchor updates like the one above become live.
 
 ## Alternative — sign in the browser (no key export)
 

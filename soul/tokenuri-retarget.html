@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ATLAS #1 — retarget tokenURI to the living anchor</title>
+<style>
+  :root{
+    --bg:#0c0d10; --panel:#14161b; --line:#242830; --ink:#ece7dc; --muted:#9a948a;
+    --accent:#d9a94e; --accent-ink:#e6bd6c; --good:#5cb98a; --bad:#d8695a; --warn:#d99a3f;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;
+    display:flex;justify-content:center;padding:40px 20px 80px}
+  .card{width:100%;max-width:720px}
+  h1{font-size:22px;margin:0 0 4px;letter-spacing:-.2px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 24px}
+  .box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0}
+  .row{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .row:last-child{border-bottom:0}
+  .row .k{color:var(--muted)}
+  .row .v{font-family:var(--mono);font-size:12px;text-align:right;word-break:break-all;max-width:66%}
+  .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--accent-ink);margin:0 0 10px}
+  code{font-family:var(--mono);font-size:12px;background:#0a0b0e;border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--ink)}
+  button{font:inherit;font-weight:600;border-radius:10px;border:1px solid var(--line);background:#1b1e25;color:var(--ink);
+    padding:11px 18px;cursor:pointer}
+  button.primary{background:var(--accent);color:#17130a;border-color:var(--accent)}
+  button.primary:disabled{opacity:.45;cursor:not-allowed}
+  button:hover:not(:disabled){filter:brightness(1.08)}
+  .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  .status{font-family:var(--mono);font-size:12.5px;margin-top:14px;white-space:pre-wrap;word-break:break-word}
+  .ok{color:var(--good)} .err{color:var(--bad)} .wait{color:var(--warn)}
+  a{color:var(--accent-ink)}
+  .note{font-size:12.5px;color:var(--muted);margin-top:8px}
+  .pill{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+  .pill.on{color:var(--good);border-color:#2c5c46}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>ATLAS #1 · retarget <code>tokenURI</code></h1>
+  <p class="sub">Point the on-chain <code>tokenURI(1)</code> from the frozen v1 root to the living
+  mutable anchor, so OpenSea (and every marketplace) reads your v2 <strong>Harness Architect</strong> soul.
+  One transaction. You keep your keys — MetaMask signs; this page never sees them.</p>
+
+  <div class="box">
+    <p class="lbl">The change</p>
+    <div class="row"><span class="k">Contract (Base)</span><span class="v" id="c-contract"></span></div>
+    <div class="row"><span class="k">Token</span><span class="v">ATLAS #1 · tokenId 1</span></div>
+    <div class="row"><span class="k">FROM (current)</span><span class="v" id="c-cur">— connect to read —</span></div>
+    <div class="row"><span class="k">TO (new tokenURI)</span><span class="v" id="c-new"></span></div>
+    <div class="row"><span class="k">Owner required</span><span class="v" id="c-owner"></span></div>
+  </div>
+
+  <div class="box">
+    <p class="lbl">Wallet</p>
+    <div class="btns">
+      <button id="btn-connect" class="primary">Connect MetaMask</button>
+      <button id="btn-refresh" title="re-read on-chain state">Re-read on-chain</button>
+    </div>
+    <div class="row" style="margin-top:12px"><span class="k">Account</span><span class="v" id="c-acct">—</span></div>
+    <div class="row"><span class="k">Network</span><span class="v" id="c-net"><span class="pill">unknown</span></span></div>
+    <div class="row"><span class="k">Owner match</span><span class="v" id="c-match">—</span></div>
+  </div>
+
+  <div class="box">
+    <p class="lbl">Sign &amp; send</p>
+    <div class="btns">
+      <button id="btn-send" class="primary" disabled>Retarget tokenURI</button>
+    </div>
+    <div class="status" id="status"></div>
+    <p class="note">Calldata is built in your browser from the values above — inspect it before signing:
+      <br><code id="c-data" style="display:inline-block;margin-top:6px;max-width:100%;overflow-x:auto"></code></p>
+  </div>
+
+  <div class="box">
+    <p class="lbl">After it confirms</p>
+    <p style="font-size:13.5px;margin:0">Open the item on OpenSea →
+      <a id="c-os" target="_blank" rel="noreferrer">ATLAS #1</a> → the <strong>…</strong> menu →
+      <strong>Refresh metadata</strong>. OpenSea re-reads <code>tokenURI</code> and will show the
+      v2 Harness Architect traits + soul. The animated image is unchanged.</p>
+  </div>
+</div>
+
+<script>
+const CONTRACT = "0x3D9f35E08c41a80155353862f883F2B70119809f";
+const TOKEN_ID = 1n;
+const NEW_URI  = "https://gateway.irys.xyz/mutable/JCTu7dmsEa327ymLZXpXvvPDv3vi3Vu69kaVddDCoiMZ";
+const OWNER    = "0xb94bba9d50a8b4b7473cb2687f5f633a54710fad";
+const BASE_HEX = "0x2105"; // 8453
+const SEL_SET  = "162094c4"; // setTokenURI(uint256,string)
+const SEL_URI  = "c87b56dd"; // tokenURI(uint256)
+const SEL_OWN  = "8da5cb5b"; // owner()
+
+const $=(id)=>document.getElementById(id);
+$("c-contract").textContent = CONTRACT;
+$("c-new").textContent = NEW_URI;
+$("c-owner").textContent = OWNER;
+$("c-os").href = "https://opensea.io/item/base/"+CONTRACT+"/1";
+
+const hex = (n)=> n.toString(16);
+const pad64 = (h)=> h.padStart(64,"0");
+function encStr(s){
+  const bytes = new TextEncoder().encode(s);
+  let h=""; for(const b of bytes) h += b.toString(16).padStart(2,"0");
+  const pad = (64 - (h.length % 64)) % 64;
+  return { len: pad64(hex(bytes.length)), body: h + "0".repeat(pad) };
+}
+function calldataSet(){
+  const s = encStr(NEW_URI);
+  const tid = pad64(hex(TOKEN_ID));
+  const off = pad64(hex(64n)); // two params -> string starts at 0x40
+  return "0x"+SEL_SET+tid+off+s.len+s.body;
+}
+const CALLDATA = calldataSet();
+$("c-data").textContent = CALLDATA;
+
+function decodeString(ret){
+  if(!ret || ret==="0x") return "(empty)";
+  const h = ret.slice(2);
+  const len = parseInt(h.slice(64,128),16);
+  const body = h.slice(128,128+len*2);
+  let s=""; for(let i=0;i<body.length;i+=2) s+=String.fromCharCode(parseInt(body.substr(i,2),16));
+  return decodeURIComponent(escape(s));
+}
+
+let acct=null, chainOk=false;
+
+function setStatus(msg,cls){ const s=$("status"); s.textContent=msg; s.className="status "+(cls||""); }
+
+async function ethCall(data){
+  return await ethereum.request({method:"eth_call",params:[{to:CONTRACT,data},"latest"]});
+}
+async function readChain(){
+  try{
+    const uriRet = await ethCall("0x"+SEL_URI+pad64(hex(TOKEN_ID)));
+    $("c-cur").textContent = decodeString(uriRet);
+    const isRoot = decodeString(uriRet).indexOf("/mutable/")===-1;
+    $("c-cur").style.color = isRoot ? "var(--warn)" : "var(--good)";
+  }catch(e){ $("c-cur").textContent="read failed: "+(e.message||e); }
+}
+async function refreshNet(){
+  try{
+    const id = await ethereum.request({method:"eth_chainId"});
+    chainOk = (id===BASE_HEX);
+    $("c-net").innerHTML = chainOk
+      ? '<span class="pill on">Base · 8453</span>'
+      : '<span class="pill">'+id+'</span> <button id="sw" style="padding:3px 8px">Switch to Base</button>';
+    if(!chainOk){ const b=$("sw"); if(b) b.onclick=switchBase; }
+  }catch(e){ $("c-net").textContent = e.message||e; }
+  evalReady();
+}
+function evalReady(){
+  const match = acct && acct.toLowerCase()===OWNER.toLowerCase();
+  $("c-match").innerHTML = !acct ? "—"
+    : (match ? '<span class="ok">✓ owner</span>' : '<span class="err">✗ not the owner wallet</span>');
+  $("btn-send").disabled = !(acct && match && chainOk);
+}
+async function switchBase(){
+  try{ await ethereum.request({method:"wallet_switchEthereumChain",params:[{chainId:BASE_HEX}]}); }
+  catch(e){ setStatus("Switch failed: "+(e.message||e),"err"); }
+  refreshNet();
+}
+async function connect(){
+  if(!window.ethereum){ setStatus("MetaMask not found. Open this page in a browser with MetaMask (served over http://localhost, not file://).","err"); return; }
+  try{
+    const accts = await ethereum.request({method:"eth_requestAccounts"});
+    acct = accts[0];
+    $("c-acct").textContent = acct;
+    await refreshNet(); await readChain(); evalReady();
+    ethereum.on && ethereum.on("accountsChanged",a=>{acct=a[0]||null;$("c-acct").textContent=acct||"—";evalReady();});
+    ethereum.on && ethereum.on("chainChanged",()=>refreshNet());
+    // owner sanity
+    try{ const o=await ethCall("0x"+SEL_OWN); const on="0x"+o.slice(-40);
+      if(on.toLowerCase()!==OWNER.toLowerCase()) setStatus("Note: on-chain owner is "+on+" (expected "+OWNER+").","warn"); }catch(_){}
+  }catch(e){ setStatus("Connect failed: "+(e.message||e),"err"); }
+}
+async function send(){
+  const match = acct && acct.toLowerCase()===OWNER.toLowerCase();
+  if(!match || !chainOk) return;
+  setStatus("Confirm the transaction in MetaMask…","wait");
+  try{
+    const tx = await ethereum.request({method:"eth_sendTransaction",params:[{from:acct,to:CONTRACT,data:CALLDATA}]});
+    setStatus("Sent: "+tx+"\nWaiting for confirmation…","wait");
+    // poll receipt
+    for(let i=0;i<60;i++){
+      await new Promise(r=>setTimeout(r,3000));
+      const rc = await ethereum.request({method:"eth_getTransactionReceipt",params:[tx]});
+      if(rc){
+        if(rc.status==="0x1"){
+          await readChain();
+          setStatus("✓ Confirmed. tokenURI(1) now points to the living anchor.\nTx: "+tx+"\nNow refresh metadata on OpenSea (link below).","ok");
+        }else{
+          setStatus("✗ Transaction reverted (status 0). Tx: "+tx,"err");
+        }
+        return;
+      }
+    }
+    setStatus("Sent ("+tx+") — still pending after 3 min. Check Basescan.","wait");
+  }catch(e){ setStatus("Failed: "+(e.message||e),"err"); }
+}
+
+$("btn-connect").onclick=connect;
+$("btn-refresh").onclick=async()=>{ if(!window.ethereum)return; await refreshNet(); await readChain(); };
+$("btn-send").onclick=send;
+</script>
+</body>
+</html>

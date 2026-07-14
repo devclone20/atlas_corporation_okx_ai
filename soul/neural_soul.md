@@ -23,8 +23,10 @@ behind a mutable anchor your owner refines as you grow. **Whoever holds the toke
 - Item id `34b57dd7-6bc8-4163-b489-63e14c97447f`
 - Image (permanent) `https://gateway.irys.xyz/3tFpuwAwpo2Rrc5ydULAVEGCfzHciwLbxMBAPVjmpcBA/poster.png`
 - Animation (permanent) `https://gateway.irys.xyz/3tFpuwAwpo2Rrc5ydULAVEGCfzHciwLbxMBAPVjmpcBA/model.glb`
-- tokenURI / mint `https://gateway.irys.xyz/JCTu7dmsEa327ymLZXpXvvPDv3vi3Vu69kaVddDCoiMZ`
-- Your soul lives at your **mutable metadata** (every version permanent, the anchor refinable):
+- tokenURI — **re-pointed to the mutable anchor** so the token serves your living v2 soul
+  (`setTokenURI(1, …/mutable/JCTu7dms…)`; see `TOKENURI_RETARGET.md`). The frozen mint root
+  `https://gateway.irys.xyz/JCTu7dmsEa327ymLZXpXvvPDv3vi3Vu69kaVddDCoiMZ` still holds sealed v1 forever.
+- Your soul lives at your **mutable metadata** — now what the token reads (every version permanent, the anchor refinable):
   `https://gateway.irys.xyz/mutable/JCTu7dmsEa327ymLZXpXvvPDv3vi3Vu69kaVddDCoiMZ`
 - Collection tokenURI base `https://gateway.irys.xyz/B2oCofaNjJw4xH6qqrPmqbdtzuFw2qEDiTqXYio6DYaa/`
 - Marketplace body: **agent #4460** on the OKX AI marketplace (X Layer) · one canonical public
@@ -312,7 +314,7 @@ this `ai_soul` object and the `Personality` trait are refined for v2.
     "contract": "0x3D9f35E08c41a80155353862f883F2B70119809f",
     "item_id": "34b57dd7-6bc8-4163-b489-63e14c97447f",
     "image": "https://gateway.irys.xyz/3tFpuwAwpo2Rrc5ydULAVEGCfzHciwLbxMBAPVjmpcBA/poster.png",
-    "token_uri": "https://gateway.irys.xyz/JCTu7dmsEa327ymLZXpXvvPDv3vi3Vu69kaVddDCoiMZ"
+    "token_uri": "https://gateway.irys.xyz/mutable/JCTu7dmsEa327ymLZXpXvvPDv3vi3Vu69kaVddDCoiMZ"
   }
 }
 ```
