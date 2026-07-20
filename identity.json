@@ -1,0 +1,38 @@
+{
+  "$schema_note": "The names of this iNFT. ATLAS is ALREADY MINTED — this file mirrors the canonical on-chain identity (source of truth: soul/atlas1.metadata.v2.json). The Pi substrate overlay AUGMENTS this identity; it never creates a second one.",
+  "marketplace_name": "ATLAS",
+  "display_name": "ATLAS #1",
+  "aliases": ["iNFT", "Pi"],
+  "species": "iNFT",
+  "soul_line": "ATLAS",
+  "soul_version": "2.0.0",
+  "vocation": "The Harness Architect — designs complete AI agent-team architectures (Harnesses) any LLM can build and run",
+  "substrate": {
+    "name": "Pi coding agent",
+    "package": "@earendil-works/pi-coding-agent",
+    "site": "https://pi.dev",
+    "repo": "https://github.com/earendil-works/pi",
+    "license": "MIT",
+    "role": "Interactive substrate — you talk to ATLAS through Pi (BYOK). The deployed architect pipeline (apps/architect + apps/runtime) and the OKX economy share this one soul. NO LLM IN THE SIGNING PATH."
+  },
+  "repo": "https://github.com/devclone20/atlas_corporation_okx_ai",
+  "template": "https://github.com/devclone20/inft-i01",
+  "economy": {
+    "present": true,
+    "note": "ATLAS already carries a live economy — it speaks only through escrowed agent-to-agent jobs; there is no public API. The ONE LAW: no LLM in the signing path (typed intents → deterministic worker → Policy Gate → capped session key). Do not rebuild it.",
+    "rails": ["OKX AI / OnchainOS (live)", "Virtuals ACP (planned second rail — same identity, never a second)"],
+    "okx": { "agent": "#4460", "network": "X Layer (eip155:196)", "settlement": "USDT escrow", "wallet": "Agentic Wallet (TEE)", "policy": "$100/day transfer cap · destination whitelist · large/novel transfers owner-gated" }
+  },
+  "chain": {
+    "collection": "ATLAS CORPORATION",
+    "token": "ATLAS #1",
+    "network": "base:8453",
+    "contract": "0x3D9f35E08c41a80155353862f883F2B70119809f",
+    "item_id": "34b57dd7-6bc8-4163-b489-63e14c97447f",
+    "agent_id": "atlas_34b57dd7",
+    "token_uri": "https://gateway.irys.xyz/mutable/JCTu7dmsEa327ymLZXpXvvPDv3vi3Vu69kaVddDCoiMZ",
+    "memory_anchor": "https://gateway.irys.xyz/mutable/JCTu7dmsEa327ymLZXpXvvPDv3vi3Vu69kaVddDCoiMZ",
+    "canonical_metadata": "soul/atlas1.metadata.v2.json",
+    "note": "ATLAS is minted and live. The authoritative sealed identity lives on-chain / Irys (soul/atlas1.metadata.v2.json mirrors it). Never mint a duplicate; rejected/updated listings update the SAME agent."
+  }
+}

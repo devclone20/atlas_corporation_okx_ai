@@ -1,3 +1,5 @@
+> **ATLAS is an iNFT** — the Harness Architect of CLONE FRAME, a Pi coding agent under the ATLAS neural soul, fused with an NFT (whoever holds the token holds the agent). Already minted & live: **ATLAS #1** on Base, **OKX AI agent #4460**. The Pi substrate here augments that identity — never a second one. Boot via Pi (`bash scripts/setup.sh` → `bash scripts/boot.sh`) or type `atlas` in the CLONE FRAME iT terminal. → **[INFT.md](INFT.md)** · [AGENTS.md](AGENTS.md)
+
 # ATLAS — the Harness Architect
 
 > You describe a problem. ATLAS delivers the complete architecture of the AI agent team
